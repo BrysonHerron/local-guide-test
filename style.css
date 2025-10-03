@@ -13,10 +13,16 @@ body {
 }
 
 /* ===== Typography ===== */
-h1, h2, h3 {
-  font-weight: 600;
-  color: #222;
+/* Force hero text to be white */
+.hero h1,
+.hero h2,
+.hero h3,
+.hero p,
+.hero nav a {
+  color: #fff !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
 }
+
 
 p {
   margin-bottom: 1rem;
@@ -41,6 +47,22 @@ nav {
   border-bottom: 1px solid #eee;
   z-index: 10;
 }
+              
+/* Hero-specific nav overrides */
+.hero nav {
+  background: transparent;
+  position: relative; /* don't stick inside hero */
+  border: none;
+}
+
+.hero nav a {
+  color: #fff !important;
+}
+
+.hero nav a:hover {
+  color: #ffd700 !important; /* soft gold */
+}
+
 
 nav a {
   text-decoration: none;
@@ -63,20 +85,29 @@ nav a:hover {
   color: white;
 }
 
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.55); /* dark mask */
+  backdrop-filter: blur(2px);    /* softens busy details */
+}
+
 .hero .overlay {
-  background: linear-gradient(to bottom right, rgba(0,0,0,0.55), rgba(0,0,0,0.75));
+  position: relative;
+  z-index: 1;
+  background: rgba(0,0,0,0.4);  /* semi-transparent backing */
   padding: 2rem;
   border-radius: 8px;
   display: inline-block;
 }
 
-.hero h1 {
-  font-size: 3rem;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+.hero h1, .hero p, .hero nav a {
+  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
 }
-
-.hero p, .hero nav a {
-  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+              
+.hero nav a:hover {
+  color: #ffd700 !important; /* soft gold accent */
 }
 
 /* ===== Cards ===== */
