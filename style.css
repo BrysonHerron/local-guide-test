@@ -55,7 +55,8 @@ nav a:hover {
 
 /* ===== Hero Section ===== */
 .hero {
-  background: url('hero.jpg') center/cover no-repeat;
+  background-size: cover;
+  background-position: center;
   position: relative;
   text-align: center;
   padding: 6rem 1rem;
@@ -63,10 +64,19 @@ nav a:hover {
 }
 
 .hero .overlay {
-  background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7));
+  background: linear-gradient(to bottom right, rgba(0,0,0,0.55), rgba(0,0,0,0.75));
   padding: 2rem;
   border-radius: 8px;
   display: inline-block;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+}
+
+.hero p, .hero nav a {
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
 }
 
 /* ===== Cards ===== */
