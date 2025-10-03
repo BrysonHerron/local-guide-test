@@ -72,12 +72,20 @@ header.hero {
   color: #fff;
 }
 
+header.hero h1,
+header.hero p,
+header.hero nav a {
+  position: relative; 
+  z-index: 2;         /* higher than overlay */
+  color: #fff !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+}
+
 header.hero::before {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0,0,0,0.55); /* dark mask */
-  backdrop-filter: blur(2px);
 }
 
 header.hero .overlay {
@@ -89,14 +97,6 @@ header.hero .overlay {
   display: inline-block;
 }
 
-header.hero h1,
-header.hero p,
-header.hero nav a {
-  position: relative; /* ensures it's above ::before */
-  z-index: 2;         /* higher than overlay */
-  color: #fff !important;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
-}
 
 
 /* ===== Cards (Hub grid) ===== */
