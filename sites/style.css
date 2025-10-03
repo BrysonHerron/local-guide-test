@@ -12,9 +12,73 @@ body {
   background: #fafafa;
 }
 
+/* ===== Typography ===== */
+/* Force hero text to be white */
+.hero h1,
+.hero h2,
+.hero h3,
+.hero p,
+.hero nav a {
+  color: #fff !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+}
+
+
+p {
+  margin-bottom: 1rem;
+}
+
+section {
+  margin: 3rem auto;
+  max-width: 1100px;
+  padding: 0 1.5rem;
+}
+              
+
+/* ===== Navigation ===== */
+nav {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #eee;
+  z-index: 10;
+}
+              
+/* Hero-specific nav overrides */
+.hero nav {
+  background: transparent;
+  position: relative; /* don't stick inside hero */
+  border: none;
+}
+
+.hero nav a {
+  color: #fff !important;
+}
+
+.hero nav a:hover {
+  color: #ffd700 !important; /* soft gold */
+}
+
+
+nav a {
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: #0077cc;
+}
+
 /* ===== Hero Section ===== */
 .hero {
-  background-size: cover;
+  background-size: 100% 100%;  /* force stretch */
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
@@ -27,78 +91,40 @@ body {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0,0,0,0.55); /* dark mask */
+  backdrop-filter: blur(2px);    /* softens busy details */
 }
 
 .hero .overlay {
   position: relative;
   z-index: 1;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.4);  /* semi-transparent backing */
   padding: 2rem;
   border-radius: 8px;
   display: inline-block;
 }
 
-.hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+.hero h1, .hero p, .hero nav a {
   text-shadow: 0 2px 6px rgba(0,0,0,0.9);
 }
-
-.hero p {
-  font-size: 1.2rem;
-  max-width: 700px;
-  margin: 0 auto 2rem;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+              
+.hero nav a:hover {
+  color: #ffd700 !important; /* soft gold accent */
 }
 
-/* ===== Navigation ===== */
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-nav a {
-  color: #fff !important;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-nav a:hover {
-  color: #ffd700 !important;
-}
-
-/* ===== Section & Cards ===== */
-section {
-  margin: 3rem auto;
-  max-width: 1100px;
-  padding: 0 1.5rem;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 1.8rem;
-  color: #222;
-}
-
+/* ===== Cards ===== */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .card {
   background: white;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  padding: 1.5rem;
-  text-align: center;
-  text-decoration: none;
+  padding: 1rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -107,15 +133,78 @@ h2 {
   box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 
-.card h3 {
-  color: #0077cc;
-  margin: 0;
-  font-size: 1.2rem;
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
 }
 
-.card:hover h3 {
-  color: #005fa3;
+.card h3 {
+  margin-bottom: 0.5rem;
 }
+
+.card h3 a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+.card h3 a:hover {
+  text-decoration: underline;
+}
+
+.card .address {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.25rem;
+}
+
+.card .rating {
+  font-size: 0.9rem;
+  color: #222;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== Description & Read More ===== */
+.desc {
+  max-height: 5.5em;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.desc.expanded {
+  max-height: 100vh;
+}
+
+.read-more {
+  display: inline-block;
+  margin-top: 0.25rem;
+  color: #0077cc;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}
+
+/* ===== Buttons ===== */
+.button {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background: #0077cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.button:hover {
+  background: #005fa3;
+}
+
 
 /* ===== Footer ===== */
 footer {
@@ -127,3 +216,9 @@ footer {
   color: #666;
   border-top: 1px solid #eee;
 }
+              
+/* Force white hero header text */
+header.hero h1 {
+  color: #fff !important;
+}
+
