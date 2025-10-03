@@ -264,3 +264,27 @@ header.hero h1 {
   box-shadow: 0 6px 18px rgba(0,0,0,0.15);
 }
 
+/* ===== Hub Page Tweaks ===== */
+.hub-intro {
+  max-height: 3.6em; /* show ~2 lines */
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.hub-intro.expanded {
+  max-height: 500px; /* expand when toggled */
+}
+
+.view-more {
+  background: none;
+  border: none;
+  color: #0077cc;
+  cursor: pointer;
+  margin: 0.5rem 1rem 1rem;
+  font-weight: bold;
+  padding: 0;
+}
+
+.view-more:hover {
+  text-decoration: underline;
+}
