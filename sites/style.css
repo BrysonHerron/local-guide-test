@@ -288,3 +288,38 @@ header.hero h1 {
 .view-more:hover {
   text-decoration: underline;
 }
+
+/* ===== Hub Header Fix ===== */
+header.hero {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  text-align: center;
+  padding: 6rem 1rem;
+  color: #fff;
+}
+
+header.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.55); /* same dark mask */
+  backdrop-filter: blur(2px);
+}
+
+header.hero .overlay {
+  position: relative;
+  z-index: 1;
+  background: rgba(0,0,0,0.4);  /* semi-transparent backing */
+  padding: 2rem;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+header.hero h1,
+header.hero p {
+  color: #fff !important;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+}
+
