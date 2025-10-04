@@ -127,6 +127,18 @@ nav a:hover {
   padding: 1rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+              
+  .ad-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px; /* same as your .card img height */
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 0.5rem;
+}
+
 
 .card:hover {
   transform: translateY(-4px);
