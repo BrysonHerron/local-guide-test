@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact — Local Guides</title>
+  <meta name="description" content="Get in touch with Local Guides. Send a message via the form or email us directly.">
+  <style>
+    :root { --bg:#ffffff; --fg:#111827; --muted:#6b7280; --link:#2563eb; --card:#f8fafc; }
+    html,body { margin:0; padding:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--fg); }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    nav a { color:var(--link); text-decoration:none; margin-right:1rem; font-weight:600; }
+    nav a:focus, nav a:hover { text-decoration:underline; }
+    h1 { font-size: clamp(1.75rem, 2.5vw, 2.25rem); margin: 2rem 0 1rem; }
+    p { line-height:1.7; }
+    form { background:var(--card); padding:1.5rem; border-radius:16px; }
+    label { display:block; font-weight:600; margin:.75rem 0 .25rem; }
+    input, textarea { width:100%; padding:.8rem; border:1px solid #e5e7eb; border-radius:10px; font: inherit; }
+    textarea { min-height: 160px; resize: vertical; }
+    .row { display:grid; grid-template-columns: 1fr 1fr; gap:1rem; }
+    .row .col { display:block; }
+    .hint { font-size:.9rem; color:var(--muted); }
+    button { margin-top:1rem; padding:.8rem 1rem; border:0; border-radius:999px; background:#111827; color:#fff; font-weight:700; cursor:pointer; }
+    button:focus, button:hover { opacity:.9; }
+    footer { margin-top:3rem; padding-top:1.5rem; border-top:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
+    .badge { display:inline-block; padding:.35rem .6rem; font-size:.8rem; background:#eef2ff; color:#3730a3; border-radius:999px; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact — Local Guides",
+    "url": "https://local-guides.netlify.app/contact",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Local Guides",
+      "url": "https://local-guides.netlify.app/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <header role="banner">
+      <a href="/" aria-label="Go to homepage" style="font-weight:800; font-size:1.1rem;">YourSiteName</a>
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact" aria-current="page">Contact</a>
+        <a href="/privacy">Privacy</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <h1>Contact</h1>
+      <p>
+        Have questions, feedback, or collaboration ideas? I’d love to hear from you.
+        Use the form below or email me directly at <a href="mailto:your.local.guides.2025@gmail.com">your.local.guides.2025@gmail.com</a>.
+      </p>
+
+      <!-- Replace `action` with your backend endpoint or use mailto as a fallback -->
+      <form action="mailto:your.local.guides.2025@gmail.com" method="post" enctype="text/plain">
+        <h2 id="contact-form-title" class="hint" style="margin-top:0;">Send a message</h2>
+        <div class="row">
+          <div class="col">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required placeholder="Jane Doe" aria-required="true">
+          </div>
+          <div class="col">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="jane@example.com" aria-required="true">
+          </div>
+        </div>
+
+        <label for="subject">Subject</label>
+        <input id="subject" name="subject" type="text" placeholder="How can we help?">
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Write your message here..." required aria-required="true"></textarea>
+
+        <!-- Simple anti-spam honeypot -->
+        <div aria-hidden="true" class="hint" style="position:absolute; left:-5000px;">
+          <label for="website">Website</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <p class="hint">
+          By submitting this form you agree that we may use your information to respond to your inquiry.
+          See our <a href="/privacy">Privacy Policy</a> for details.
+        </p>
+
+        <button type="submit">Send</button>
+      </form>
+
+    </main>
+
+    <footer role="contentinfo">
+      <span class="hint">© <span id="year"></span> Local Guides. All rights reserved.</span>
+      <a class="badge" href="/about">About</a>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <noscript>Your message form uses simple HTML. If JavaScript is disabled, the form still works.</noscript>
+</body>
+</html>

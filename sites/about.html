@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>About — Local Guides</title>
+  <meta name="description" content="Learn about Local Guides — who we are, what we publish, and how we help our readers.">
+  <style>
+    :root { --bg:#ffffff; --fg:#111827; --muted:#6b7280; --link:#2563eb; --card:#f8fafc; }
+    html,body { margin:0; padding:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:var(--bg); color:var(--fg); }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    nav a { color:var(--link); text-decoration:none; margin-right:1rem; font-weight:600; }
+    nav a:focus, nav a:hover { text-decoration:underline; }
+    .hero { margin: 2rem 0; padding:2rem; background:var(--card); border-radius:16px; }
+    .grid { display:grid; grid-template-columns: 1fr; gap:1.5rem; }
+    figure { margin:0; }
+    img { max-width:100%; height:auto; border-radius:12px; }
+    h1 { font-size: clamp(1.75rem, 2.5vw, 2.25rem); margin: 0 0 0.5rem 0; }
+    h2 { font-size: 1.25rem; margin: 1.5rem 0 0.5rem; }
+    p { line-height:1.7; }
+    .small { color:var(--muted); font-size:0.95rem; }
+    footer { margin-top:3rem; padding-top:1.5rem; border-top:1px solid #e5e7eb; display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
+    .badge { display:inline-block; padding:.35rem .6rem; font-size:.8rem; background:#eef2ff; color:#3730a3; border-radius:999px; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About — Local Guides",
+    "url": "https://local-guides.netlify.app/about",
+    "description": "About Local Guides: who we are and what we publish.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Local Guides",
+      "url": "https://local-guides.netlify.app/",
+    },
+  }
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <header role="banner">
+      <a href="/" aria-label="Go to homepage" style="font-weight:800; font-size:1.1rem;">Local Guides</a>
+      <nav aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/about" aria-current="page">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacy">Privacy</a>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section class="hero" aria-labelledby="about-title">
+        <div class="grid">
+          <div>
+            <h1 id="about-title">About <span class="small">Local Guides</span></h1>
+            <p>
+              Hi, I’m <strong>Bryson</strong>. I created <strong>Local Guides</strong> to share helpful, well‑researched
+              guides about <em>Lesser known cities/towns that make the best travel destinations!</em>. My goal is to make the complexities of travel simple, practical, and enjoyable.
+            </p>
+            <p>
+              On this site you’ll find tutorials, reviews, and opinion pieces. I keep posts updated so information stays accurate over time.
+            </p>
+            <p>
+              I started this project in <strong>2025</strong> after <em>traveling to several lesser-known destinations and having a hard time finding reliable information about them</em>.
+              Since then, the site has grown thanks to readers’ feedback. If you have suggestions, or want a new town featured, I’d love to hear them!
+            </p>
+            <p class="small">Last updated: <time datetime="2025-10-06">October 6, 2025</time></p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="values">
+        <h2 id="values">What you can expect</h2>
+        <ul>
+          <li><strong>Clarity:</strong> Plain language and actionable steps.</li>
+          <li><strong>Integrity:</strong> Honest opinions, clear disclosures, and sourced claims.</li>
+          <li><strong>Privacy‑first:</strong> Minimal tracking and respect for your data.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="disclosure">
+        <h2 id="disclosure">Disclosures</h2>
+        <p>
+          Some articles may contain affiliate links. If you purchase through those links, I may earn a small commission at no extra cost to you.
+          This helps keep the site running. I only recommend products/locations I genuinely find useful.
+        </p>
+      </section>
+    </main>
+
+    <footer role="contentinfo">
+      <span class="small">© <span id="year"></span> Local Guides. All rights reserved.</span>
+      <a class="badge" href="/contact" aria-label="Contact page">Contact</a>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
