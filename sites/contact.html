@@ -59,39 +59,38 @@
         Use the form below or email me directly at <a href="mailto:your.local.guides.2025@gmail.com">your.local.guides.2025@gmail.com</a>.
       </p>
 
-      <!-- Replace `action` with your backend endpoint or use mailto as a fallback -->
-      <form action="mailto:your.local.guides.2025@gmail.com" method="post" enctype="text/plain">
-        <h2 id="contact-form-title" class="hint" style="margin-top:0;">Send a message</h2>
-        <div class="row">
-          <div class="col">
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" autocomplete="name" required placeholder="Jane Doe" aria-required="true">
-          </div>
-          <div class="col">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" autocomplete="email" required placeholder="jane@example.com" aria-required="true">
-          </div>
-        </div>
 
-        <label for="subject">Subject</label>
-        <input id="subject" name="subject" type="text" placeholder="How can we help?">
+<form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you.html">
+  <!-- Required hidden input for Netlify -->
+  <input type="hidden" name="form-name" value="contact">
 
-        <label for="message">Message</label>
-        <textarea id="message" name="message" placeholder="Write your message here..." required aria-required="true"></textarea>
+  <!-- Honeypot field (anti-spam) -->
+  <p class="hidden" style="display:none;">
+    <label>Don’t fill this out if you're human: <input name="bot-field"></label>
+  </p>
 
-        <!-- Simple anti-spam honeypot -->
-        <div aria-hidden="true" class="hint" style="position:absolute; left:-5000px;">
-          <label for="website">Website</label>
-          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
-        </div>
+  <h2 id="contact-form-title" class="hint" style="margin-top:0;">Send a message</h2>
 
-        <p class="hint">
-          By submitting this form you agree that we may use your information to respond to your inquiry.
-          See our <a href="/privacy">Privacy Policy</a> for details.
-        </p>
+  <div class="row">
+    <div class="col">
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" autocomplete="name" required placeholder="Jane Doe" aria-required="true">
+    </div>
+    <div class="col">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" required placeholder="jane@example.com" aria-required="true">
+    </div>
+  </div>
 
-        <button type="submit">Send</button>
-      </form>
+  <label for="subject">Subject</label>
+  <input id="subject" name="subject" type="text" placeholder="How can we help?">
+
+  <label for="message">Message</label>
+  <textarea id="message" name="message" placeholder="Write your message here..." required aria-required="true"></textarea>
+
+  <button type="submit">Send</button>
+</form>
+
 
     </main>
 
