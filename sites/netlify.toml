@@ -1,6 +1,7 @@
 [build]
-  functions = "sites/netlify/functions"
-  publish = "sites/public"
+  base = "sites"
+  publish = "public"
+  functions = "netlify/functions"
 
 [functions]
   python_runtime = "python3.10"
