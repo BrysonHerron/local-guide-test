@@ -4,4 +4,4 @@
   functions = "netlify/functions"
 
 [functions]
-  python_runtime = "python3.10"
+  node_bundler = "esbuild"
