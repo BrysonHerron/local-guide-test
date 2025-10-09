@@ -1,0 +1,6 @@
+[build]
+  functions = "netlify/functions"
+  publish = "public"
+
+[functions]
+  python_runtime = "python3.10"

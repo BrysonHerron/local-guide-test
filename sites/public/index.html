@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Travel Guides Hub</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+    }
+    header.hero {
+      background: url('header-image.jpg') center/cover no-repeat;
+      text-align: center;
+      color: white;
+      padding: 80px 20px;
+      background-color: #0077cc;
+    }
+    header.hero h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    header.hero p {
+      font-size: 1.2rem;
+    }
+    nav.site-nav {
+      display: flex;
+      justify-content: center;
+      background-color: #004b8d;
+      padding: 10px;
+    }
+    nav.site-nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      text-align: center;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    #search-form input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 2px solid #0077cc;
+      border-radius: 5px;
+    }
+    #search-form button {
+      padding: 10px 20px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    #search-form button:hover {
+      background-color: #005fa3;
+    }
+    .ad-container {
+      margin: 40px auto;
+      text-align: center;
+    }
+    footer {
+      background: #004b8d;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Explore Our Travel Guides</h1>
+    <p>Choose your next adventure</p>
+  </header>
+
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <main>
+    <h2>Generate a Custom City Guide</h2>
+    <p>Enter a city or town anywhere in the world to instantly generate a travel guide with attractions, hotels, and restaurants.</p>
+    <form id="search-form">
+      <input type="text" id="city-input" placeholder="e.g. Paris, France" required>
+      <button type="submit">Generate Guide</button>
+    </form>
+  </main>
+
+  <div class="ad-container">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5002773456318606"
+         crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5002773456318606"
+         data-ad-slot="3731369867"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <footer><p>© 2025 Local Travel Guides</p></footer>
+
+  <script>
+    document.getElementById('search-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const city = document.getElementById('city-input').value.trim();
+      if (city) {
+        const url = `/.netlify/functions/generate_city?name=${encodeURIComponent(city)}`;
+        window.open(url, '_blank');
+      }
+    });
+  </script>
+</body>
+</html>
