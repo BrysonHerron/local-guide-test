@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Travel Guides Hub</title>
+  <title>The Tower Automation Tools</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
@@ -16,7 +16,7 @@
       text-align: center;
       color: white;
       padding: 80px 20px;
-      background-color: #0077cc;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
     header.hero h1 {
       margin: 0;
@@ -28,7 +28,7 @@
     nav.site-nav {
       display: flex;
       justify-content: center;
-      background-color: #004b8d;
+      background-color: #6d28d9;
       padding: 10px;
     }
     nav.site-nav a {
@@ -50,12 +50,12 @@
       width: 70%;
       padding: 10px;
       font-size: 1rem;
-      border: 2px solid #0077cc;
+      border: 2px solid #8b5cf6;
       border-radius: 5px;
     }
     #search-form button {
       padding: 10px 20px;
-      background-color: #0077cc;
+      background-color: #8b5cf6;
       color: white;
       border: none;
       border-radius: 5px;
@@ -64,7 +64,7 @@
       margin-left: 10px;
     }
     #search-form button:hover {
-      background-color: #005fa3;
+      background-color: #7c3aed;
     }
     .ad-container {
       margin: 40px auto;
@@ -81,8 +81,8 @@
 </head>
 <body>
   <header class="hero">
-    <h1>Explore Our Travel Guides</h1>
-    <p>Choose your next adventure</p>
+    <h1>The Tower Automation Tools</h1>
+    <p>Automate your gameplay and maximize your progress</p>
   </header>
 
   <nav class="site-nav">
@@ -92,11 +92,11 @@
   </nav>
 
   <main>
-    <h2>Generate a Custom City Guide</h2>
-    <p>Enter a city or town anywhere in the world to instantly generate a travel guide with attractions, hotels, and restaurants.</p>
+    <h2>Automation Tools for The Tower</h2>
+    <p>Select an automation tool to help optimize your gameplay, manage resources, and progress faster in The Tower mobile game.</p>
     <form id="search-form">
-      <input type="text" id="city-input" placeholder="e.g. Paris, France" required>
-      <button type="submit">Generate Guide</button>
+      <input type="text" id="city-input" placeholder="e.g. Auto-clicker, Resource Manager, Stage Optimizer" required>
+      <button type="submit">Launch Tool</button>
     </form>
   </main>
 
@@ -112,7 +112,7 @@
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
 
-  <footer><p>© 2025 Local Travel Guides</p></footer>
+  <footer><p>© 2025 The Tower Automation Tools</p></footer>
 
   <script>
     document.getElementById('search-form').addEventListener('submit', function(e) {
@@ -120,6 +120,7 @@
       const city = document.getElementById('city-input').value.trim();
       if (city) {
         const url = `/.netlify/functions/generate_city?name=${encodeURIComponent(city)}`;
+        // TODO: Update this to point to actual automation tool endpoints
         window.open(url, '_blank');
       }
     });

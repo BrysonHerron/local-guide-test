@@ -112,7 +112,7 @@ header.hero .overlay {
   font-weight: 600;
 }
 .site-nav a:hover {
-  color: #0077cc;
+  color: #8b5cf6; /* Purple theme for gaming */
 }
 
 
@@ -145,7 +145,7 @@ header.hero .overlay {
 .hub-card h2 {
   font-size: 1.4rem;
   margin: 1rem;
-  color: #0077cc;
+  color: #8b5cf6;
 }
 
 .hub-card p {
@@ -187,7 +187,7 @@ header.hero .overlay {
 .button {
   display: inline-block;
   padding: 0.6rem 1.2rem;
-  background: #0077cc;
+  background: #8b5cf6;
   color: white;
   text-decoration: none;
   border-radius: 6px;
@@ -195,7 +195,7 @@ header.hero .overlay {
 }
 
 .button:hover {
-  background: #005fa3;
+  background: #7c3aed;
 }
 
 /* ===== Footer ===== */
