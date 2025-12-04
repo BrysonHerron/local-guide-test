@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>The Tower Automation Tools</title>
+  <title>Mobile Automation Tools</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
@@ -38,32 +38,68 @@
       font-weight: bold;
     }
     main {
-      max-width: 800px;
+      max-width: 1200px;
       margin: 40px auto;
-      text-align: center;
       padding: 20px;
+    }
+    .products-intro {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .products-intro h2 {
+      margin: 0 0 10px 0;
+      font-size: 2rem;
+      color: #333;
+    }
+    .products-intro p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    .product-card {
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 30px 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    #search-form input[type="text"] {
-      width: 70%;
-      padding: 10px;
-      font-size: 1rem;
-      border: 2px solid #8b5cf6;
-      border-radius: 5px;
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
     }
-    #search-form button {
-      padding: 10px 20px;
+    .product-card h3 {
+      margin: 0 0 15px 0;
+      font-size: 1.5rem;
+      color: #333;
+    }
+    .product-card .price {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #8b5cf6;
+      margin: 20px 0;
+    }
+    .product-card .description {
+      color: #666;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+    .product-card .purchase-btn {
+      display: inline-block;
+      padding: 12px 30px;
       background-color: #8b5cf6;
       color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-left: 10px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
     }
-    #search-form button:hover {
+    .product-card .purchase-btn:hover {
       background-color: #7c3aed;
     }
     .ad-container {
@@ -71,7 +107,7 @@
       text-align: center;
     }
     footer {
-      background: #004b8d;
+      background: #6d28d9;
       color: white;
       text-align: center;
       padding: 15px;
@@ -81,8 +117,8 @@
 </head>
 <body>
   <header class="hero">
-    <h1>The Tower Automation Tools</h1>
-    <p>Automate your gameplay and maximize your progress</p>
+    <h1>Mobile Automation Tools</h1>
+    <p>Automate your mobile apps and maximize your efficiency</p>
   </header>
 
   <nav class="site-nav">
@@ -92,12 +128,33 @@
   </nav>
 
   <main>
-    <h2>Automation Tools for The Tower</h2>
-    <p>Select an automation tool to help optimize your gameplay, manage resources, and progress faster in The Tower mobile game.</p>
-    <form id="search-form">
-      <input type="text" id="city-input" placeholder="e.g. Auto-clicker, Resource Manager, Stage Optimizer" required>
-      <button type="submit">Launch Tool</button>
-    </form>
+    <div class="products-intro">
+      <h2>Mobile Application Automation Tools</h2>
+      <p>Choose an automation tool to optimize your mobile app experience and maximize your efficiency.</p>
+    </div>
+    
+    <div class="products-grid">
+      <div class="product-card">
+        <h3>Battle Auto Restart</h3>
+        <div class="price">$10</div>
+        <p class="description">Automatically restart battles to optimize your progression. Never miss a restart opportunity.</p>
+        <a href="https://your-itch-io-username.itch.io/battle-auto-restart" target="_blank" class="purchase-btn">Purchase on itch.io</a>
+      </div>
+      
+      <div class="product-card">
+        <h3>Auto Gem Collection</h3>
+        <div class="price">$15</div>
+        <p class="description">Automatically collect gems while you're away. Maximize your gem earnings with minimal effort.</p>
+        <a href="https://your-itch-io-username.itch.io/auto-gem-collection" target="_blank" class="purchase-btn">Purchase on itch.io</a>
+      </div>
+      
+      <div class="product-card">
+        <h3>Gem + Battle Restart</h3>
+        <div class="price">$20</div>
+        <p class="description">Complete automation package combining gem collection and battle restart features for maximum efficiency.</p>
+        <a href="https://your-itch-io-username.itch.io/gem-battle-restart" target="_blank" class="purchase-btn">Purchase on itch.io</a>
+      </div>
+    </div>
   </main>
 
   <div class="ad-container">
@@ -112,18 +169,6 @@
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
 
-  <footer><p>© 2025 The Tower Automation Tools</p></footer>
-
-  <script>
-    document.getElementById('search-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const city = document.getElementById('city-input').value.trim();
-      if (city) {
-        const url = `/.netlify/functions/generate_city?name=${encodeURIComponent(city)}`;
-        // TODO: Update this to point to actual automation tool endpoints
-        window.open(url, '_blank');
-      }
-    });
-  </script>
+  <footer><p>© 2025 Mobile Automation Tools</p></footer>
 </body>
 </html>
