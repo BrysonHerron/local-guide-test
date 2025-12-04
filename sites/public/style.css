@@ -7,9 +7,9 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background: #fafafa;
+  line-height: 1.55;
+  color: #111827; /* Dark neutral text */
+  background: #F3F4F6; /* Light gray background */
 }
 
 p {
@@ -32,8 +32,9 @@ nav {
   top: 0;
   background: white;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #E5E7EB;
   z-index: 10;
+  font-weight: 500;
 }
 
 .hero nav {
@@ -47,25 +48,24 @@ nav {
 }
 
 .hero nav a:hover {
-  color: #ffd700 !important; /* soft gold */
+  color: #F59E0B !important; /* subtle professional accent */
 }
 
 nav a {
   text-decoration: none;
-  color: #444;
+  color: #111827;
   font-weight: 500;
   transition: color 0.2s;
 }
 
 nav a:hover {
-  color: #0077cc;
+  color: #2563EB; /* professional blue accent */
 }
 
-/* ===== Hero Section (Hub header matches town pages) ===== */
+/* ===== Hero Section ===== */
 header.hero {
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
   position: relative;
   text-align: center;
   padding: 6rem 1rem;
@@ -76,22 +76,21 @@ header.hero h1,
 header.hero p,
 header.hero nav a {
   position: relative; 
-  z-index: 2;         /* higher than overlay */
-  color: #fff !important;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+  z-index: 2;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
 header.hero::before {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.55); /* dark mask */
+  background: rgba(0,0,0,0.45); /* softer dark overlay */
 }
 
 header.hero .overlay {
   position: relative;
   z-index: 1;
-  background: rgba(0,0,0,0.4);  /* semi-transparent backing */
+  background: rgba(0,0,0,0.3);
   padding: 2rem;
   border-radius: 8px;
   display: inline-block;
@@ -102,19 +101,20 @@ header.hero .overlay {
   display: flex;
   justify-content: center;
   gap: 1.5rem;
-  background-color: #f8f8f8;
+  background-color: #F9FAFB;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #ddd;
-}
-.site-nav a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
-}
-.site-nav a:hover {
-  color: #8b5cf6; /* Purple theme for gaming */
+  border-bottom: 1px solid #E5E7EB;
 }
 
+.site-nav a {
+  text-decoration: none;
+  color: #111827;
+  font-weight: 600;
+}
+
+.site-nav a:hover {
+  color: #2563EB;
+}
 
 /* ===== Cards (Hub grid) ===== */
 .hub-grid {
@@ -122,18 +122,16 @@ header.hero .overlay {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 2rem;
   padding: 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
 }
 
 .hub-card {
-  background: white;
+  background: #fff;
   border-radius: 10px;
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .hub-card img {
@@ -145,37 +143,37 @@ header.hero .overlay {
 .hub-card h2 {
   font-size: 1.4rem;
   margin: 1rem;
-  color: #8b5cf6;
+  color: #1E3A8A; /* dark professional blue */
 }
 
 .hub-card p {
   margin: 0 1rem 1rem;
-  color: #555;
+  color: #6B7280; /* gray text */
 }
 
 .hub-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
 }
 
 /* ===== Hub Page Tweaks ===== */
 .hub-intro {
-  max-height: 3.6em; /* ~2 lines */
+  max-height: 3.6em; 
   overflow: hidden;
   transition: max-height 0.3s ease;
 }
 
 .hub-intro.expanded {
-  max-height: 500px; /* expand on toggle */
+  max-height: 500px;
 }
 
 .view-more {
   background: none;
   border: none;
-  color: #0077cc;
+  color: #2563EB;
   cursor: pointer;
   margin: 0.5rem 1rem 1rem;
-  font-weight: bold;
+  font-weight: 600;
   padding: 0;
 }
 
@@ -187,24 +185,25 @@ header.hero .overlay {
 .button {
   display: inline-block;
   padding: 0.6rem 1.2rem;
-  background: #8b5cf6;
+  background: #2563EB;
   color: white;
   text-decoration: none;
   border-radius: 6px;
-  transition: background 0.2s ease;
+  font-weight: 600;
+  transition: background 0.25s ease;
 }
 
 .button:hover {
-  background: #7c3aed;
+  background: #1E40AF;
 }
 
 /* ===== Footer ===== */
 footer {
   margin-top: 3rem;
   padding: 1.5rem;
-  background: #f8f9fa;
+  background: #F9FAFB;
   text-align: center;
   font-size: 0.9rem;
-  color: #666;
-  border-top: 1px solid #eee;
+  color: #6B7280;
+  border-top: 1px solid #E5E7EB;
 }
