@@ -142,7 +142,7 @@ async function fetchPlaces(apiKey, cityName, placeType) {
   };
   
   // Specify which fields we want from the API response
-  const fieldMask = 'places.displayName,places.formattedAddress,places.rating,places.userRatingCount,places.photos';
+  const fieldMask = 'places.displayName,places.formattedAddress,places.rating,places.userRatingCount,places.photos,places.googleMapsLinks';
   
   try {
     const data = await fetchJSONPost(GOOGLE_PLACES_API_URL, apiKey, requestBody, fieldMask);
@@ -190,12 +190,19 @@ async function fetchPlaces(apiKey, cityName, placeType) {
           }
         }
         
+        // Extract Google Maps link
+        let mapsUrl = null;
+        if (p.googleMapsLinks && p.googleMapsLinks.placeUri) {
+          mapsUrl = p.googleMapsLinks.placeUri;
+        }
+        
         return {
           name: p.displayName ? p.displayName.text : 'Unknown',
           address: address,
           rating: rating,
           user_ratings_total: userRatingsTotal,
-          photo_url: photoUrl
+          photo_url: photoUrl,
+          maps_url: mapsUrl
         };
       });
     }
@@ -252,7 +259,7 @@ function buildCards(title, items, hasApiKey) {
         ? `<div class='place-image-container'><img src='${i.photo_url}' alt='${escapeHtml(i.name || 'Place')}' class='place-image' loading='lazy' onerror="this.parentElement.innerHTML='<div class=\\'placeholder-image\\'><span>📷</span></div>'"></div>`
         : `<div class='place-image-container'><div class='placeholder-image'><span>📷</span></div></div>`;
       
-      return `<div class='place-card'>
+      const cardContent = `<div class='place-card'>
         ${imageHtml}
         <div class='place-card-content'>
           <div class='place-card-header'>
@@ -261,8 +268,15 @@ function buildCards(title, items, hasApiKey) {
           </div>
           <p class='place-address'>📍 ${escapeHtml(i.address || '')}</p>
           ${i.rating ? `<p class='place-reviews'>${reviews} ${reviews === '1' ? 'review' : 'reviews'}</p>` : ''}
+          ${i.maps_url ? `<p class='view-maps-link'>View on Google Maps →</p>` : ''}
         </div>
       </div>`;
+      
+      // Wrap in link if maps URL is available
+      if (i.maps_url) {
+        return `<a href='${i.maps_url}' target='_blank' rel='noopener noreferrer' class='place-card-link'>${cardContent}</a>`;
+      }
+      return cardContent;
     }).join('');
   }
   const adBlock = buildAdBlock();
@@ -371,6 +385,19 @@ nav a:hover {
   gap: 1.5rem;
   margin-top: 1.5rem;
 }
+.place-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.place-card-link:hover {
+  transform: translateY(-4px);
+}
+.place-card-link:hover .place-card {
+  box-shadow: 0 8px 24px rgba(0,119,204,0.15);
+  border-color: rgba(0,119,204,0.3);
+}
 .place-card {
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   border-radius: 12px;
@@ -380,10 +407,10 @@ nav a:hover {
   border: 1px solid rgba(0,119,204,0.1);
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+  height: 100%;
 }
 .place-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,119,204,0.15);
   border-color: rgba(0,119,204,0.3);
 }
 .place-image-container {
@@ -469,6 +496,17 @@ nav a:hover {
   font-size: 0.85rem;
   margin: 0.5rem 0 0 0;
   font-weight: 500;
+}
+.view-maps-link {
+  color: #0077cc;
+  font-size: 0.85rem;
+  margin: 0.75rem 0 0 0;
+  font-weight: 600;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+.place-card-link:hover .view-maps-link {
+  opacity: 1;
 }
 .no-results {
   text-align: center;
