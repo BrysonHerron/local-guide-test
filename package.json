@@ -1,0 +1,16 @@
+{
+  "name": "local-guide-test",
+  "version": "1.0.0",
+  "description": "Local Travel Guides Site",
+  "scripts": {
+    "dev": "netlify dev --framework=\"#static\"",
+    "start": "netlify dev --framework=\"#static\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  }
+}
+
