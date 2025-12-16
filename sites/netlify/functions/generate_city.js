@@ -142,27 +142,29 @@ async function fetchPlaces(apiKey, cityName, placeType) {
   };
   
   // Specify which fields we want from the API response
-  const fieldMask = 'places.displayName,places.formattedAddress,places.rating,places.userRatingCount,places.photos,places.googleMapsLinks';
+  const fieldMask = 'places.displayName,places.formattedAddress,places.rating,places.userRatingCount,places.photos,places.googleMapsLinks,nextPageToken';
   
   try {
     const data = await fetchJSONPost(GOOGLE_PLACES_API_URL, apiKey, requestBody, fieldMask);
     
     // Log the response for debugging
     const places = data.places || [];
+    const nextPageToken = data.nextPageToken || null;
     console.log(`Places API response for "${placeType} in ${cityName}":`, {
       hasResults: places.length > 0,
       resultsCount: places.length,
+      hasNextPage: !!nextPageToken,
       errorMessage: data.error ? data.error.message : null
     });
     
     // Handle errors in the response
     if (data.error) {
       console.error("Google Places API: Error", data.error.message || JSON.stringify(data.error));
-      return [];
+      return { places: [], nextPageToken: null };
     }
     
     if (places.length > 0) {
-      return places.map(p => {
+      const formattedPlaces = places.map(p => {
         // Extract address from formattedAddress or addressComponents
         let address = '';
         if (p.formattedAddress) {
@@ -205,17 +207,19 @@ async function fetchPlaces(apiKey, cityName, placeType) {
           maps_url: mapsUrl
         };
       });
+      
+      return { places: formattedPlaces, nextPageToken: nextPageToken };
     }
     
     console.log(`No results found for "${placeType} in ${cityName}"`);
-    return [];
+    return { places: [], nextPageToken: null };
   } catch (error) {
     console.error("Error fetching places:", error.message);
     // If error message contains information about the API, log it
     if (error.message.includes('REQUEST_DENIED') || error.message.includes('legacy')) {
       console.error("Make sure you have enabled the Places API (New) in your Google Cloud Console and that your API key has the necessary permissions.");
     }
-    return [];
+    return { places: [], nextPageToken: null };
   }
 }
 
@@ -242,7 +246,7 @@ function buildAdBlock() {
 </div>`;
 }
 
-function buildCards(title, items, hasApiKey) {
+function buildCards(title, items, hasApiKey, placeType, cityName, nextPageToken) {
   let cards;
   if (!items || items.length === 0) {
     if (!hasApiKey) {
@@ -280,17 +284,28 @@ function buildCards(title, items, hasApiKey) {
     }).join('');
   }
   const adBlock = buildAdBlock();
-  return `<section class='places-section'><h2 class='section-title'>${title}</h2>${adBlock}<div class='cards-grid'>${cards}</div></section>`;
+  const loadMoreButton = nextPageToken 
+    ? `<button class='load-more-btn' data-city='${escapeHtml(cityName)}' data-type='${escapeHtml(placeType)}' data-token='${escapeHtml(nextPageToken)}' data-section='${escapeHtml(title.toLowerCase().replace(/\s+/g, '-'))}'>Load More</button>`
+    : '';
+  return `<section class='places-section' data-section-type='${escapeHtml(placeType)}'><h2 class='section-title'>${title}</h2>${adBlock}<div class='cards-grid'>${cards}</div>${loadMoreButton}</section>`;
 }
 
 async function buildCityPage(cityName, googleApiKey) {
   const hasApiKey = !!googleApiKey;
-  const [wikiText, attractions, hotels, restaurants] = await Promise.all([
+  const [wikiText, attractionsData, hotelsData, restaurantsData] = await Promise.all([
     fetchWikipedia(cityName),
     fetchPlaces(googleApiKey, cityName, "tourist attractions"),
     fetchPlaces(googleApiKey, cityName, "hotels"),
     fetchPlaces(googleApiKey, cityName, "restaurants")
   ]);
+  
+  // Extract places and page tokens from the results
+  const attractions = attractionsData.places || [];
+  const attractionsToken = attractionsData.nextPageToken || null;
+  const hotels = hotelsData.places || [];
+  const hotelsToken = hotelsData.nextPageToken || null;
+  const restaurants = restaurantsData.places || [];
+  const restaurantsToken = restaurantsData.nextPageToken || null;
 
   return `<!DOCTYPE html>
 <html lang='en'>
@@ -508,6 +523,33 @@ nav a:hover {
 .place-card-link:hover .view-maps-link {
   opacity: 1;
 }
+.load-more-btn {
+  display: block;
+  margin: 2rem auto 0;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, #0077cc 0%, #005fa3 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,119,204,0.3);
+}
+.load-more-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,119,204,0.4);
+  background: linear-gradient(135deg, #005fa3 0%, #004d82 100%);
+}
+.load-more-btn:active {
+  transform: translateY(0);
+}
+.load-more-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
 .no-results {
   text-align: center;
   color: #888;
@@ -558,10 +600,132 @@ nav a:hover {
     <h1>${escapeHtml(cityName)}</h1>
     <p class='city-description'>${escapeHtml(wikiText)}</p>
   </div>
-  ${buildCards("Top Attractions", attractions, hasApiKey)}
-  ${buildCards("Popular Hotels", hotels, hasApiKey)}
-  ${buildCards("Best Restaurants", restaurants, hasApiKey)}
+  ${buildCards("Top Attractions", attractions, hasApiKey, "tourist attractions", cityName, attractionsToken)}
+  ${buildCards("Popular Hotels", hotels, hasApiKey, "hotels", cityName, hotelsToken)}
+  ${buildCards("Best Restaurants", restaurants, hasApiKey, "restaurants", cityName, restaurantsToken)}
 </div>
+<script>
+(function() {
+  function escapeHtml(text) {
+    const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    };
+    return String(text).replace(/[&<>"']/g, m => map[m]);
+  }
+
+  function createCardHTML(item) {
+    const rating = item.rating ? parseFloat(item.rating).toFixed(1) : 'N/A';
+    const reviewsNum = item.user_ratings_total ? parseInt(item.user_ratings_total) : 0;
+    const reviews = reviewsNum.toLocaleString();
+    
+    // Create image HTML - match server-side format exactly
+    let imageHtml;
+    if (item.photo_url) {
+      // Use double quotes for attributes and properly escape
+      const photoUrlEscaped = item.photo_url.replace(/"/g, '&quot;');
+      const nameEscaped = escapeHtml(item.name || 'Place');
+      imageHtml = '<div class="place-image-container"><img src="' + photoUrlEscaped + '" alt="' + nameEscaped + '" class="place-image" loading="lazy"></div>';
+    } else {
+      imageHtml = '<div class="place-image-container"><div class="placeholder-image"><span>📷</span></div></div>';
+    }
+    
+    const ratingBadge = item.rating ? '<div class="rating-badge"><span class="rating-icon">⭐</span><span class="rating-value">' + rating + '</span></div>' : '';
+    const reviewsText = item.rating ? '<p class="place-reviews">' + reviews + ' ' + (reviewsNum === 1 ? 'review' : 'reviews') + '</p>' : '';
+    const mapsLink = item.maps_url ? '<p class="view-maps-link">View on Google Maps →</p>' : '';
+    
+    const cardContent = '<div class="place-card">' +
+      imageHtml +
+      '<div class="place-card-content">' +
+      '<div class="place-card-header">' +
+      '<h3 class="place-name">' + escapeHtml(item.name || 'Unknown') + '</h3>' +
+      ratingBadge +
+      '</div>' +
+      '<p class="place-address">📍 ' + escapeHtml(item.address || '') + '</p>' +
+      reviewsText +
+      mapsLink +
+      '</div>' +
+      '</div>';
+    
+    if (item.maps_url) {
+      const mapsUrlEscaped = item.maps_url.replace(/"/g, '&quot;');
+      return '<a href="' + mapsUrlEscaped + '" target="_blank" rel="noopener noreferrer" class="place-card-link">' + cardContent + '</a>';
+    }
+    return cardContent;
+  }
+  
+  // Handle image errors after cards are inserted
+  function handleImageErrors() {
+    // Use event delegation for better performance
+    const cardsGrid = document.querySelector('.cards-grid');
+    if (cardsGrid) {
+      cardsGrid.addEventListener('error', function(e) {
+        if (e.target && e.target.classList.contains('place-image')) {
+          e.target.parentElement.innerHTML = '<div class="placeholder-image"><span>📷</span></div>';
+        }
+      }, true); // Use capture phase
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const loadMoreButtons = document.querySelectorAll('.load-more-btn');
+    
+    loadMoreButtons.forEach(button => {
+      button.addEventListener('click', async function() {
+        const city = this.getAttribute('data-city');
+        const type = this.getAttribute('data-type');
+        const token = this.getAttribute('data-token');
+        const section = this.closest('.places-section');
+        const cardsGrid = section.querySelector('.cards-grid');
+        
+        if (!city || !type || !token) return;
+        
+        // Disable button and show loading state
+        this.disabled = true;
+        const originalText = this.textContent;
+        this.textContent = 'Loading...';
+        
+        try {
+          const url = '/.netlify/functions/get_places?city=' + encodeURIComponent(city) + '&type=' + encodeURIComponent(type) + '&pageToken=' + encodeURIComponent(token);
+          const response = await fetch(url);
+          const data = await response.json();
+          
+           if (data.places && data.places.length > 0) {
+             // Add new cards to the grid
+             data.places.forEach(item => {
+               const cardHTML = createCardHTML(item);
+               cardsGrid.insertAdjacentHTML('beforeend', cardHTML);
+             });
+             
+             // Set up image error handlers for newly added images
+             handleImageErrors();
+             
+             // Update button with new token or remove it if no more pages
+             if (data.nextPageToken) {
+               this.setAttribute('data-token', data.nextPageToken);
+               this.disabled = false;
+               this.textContent = originalText;
+             } else {
+               this.remove();
+             }
+           } else {
+             // No more results
+             this.remove();
+           }
+        } catch (error) {
+          console.error('Error loading more places:', error);
+          this.disabled = false;
+          this.textContent = originalText;
+          alert('Failed to load more places. Please try again.');
+        }
+      });
+    });
+  });
+})();
+</script>
 </body>
 </html>`;
 }
